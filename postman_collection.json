@@ -1,0 +1,329 @@
+{
+	"info": {
+		"name": "Cartas API - Hearthstone",
+		"description": "API REST para gerenciamento de cartas e baralhos do jogo Hearthstone",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		}
+	],
+	"item": [
+		{
+			"name": "Cartas",
+			"item": [
+				{
+					"name": "Criar Carta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Bola de Fogo\",\n    \"descricao\": \"Causa 6 de dano\",\n    \"ataque\": 6,\n    \"defesa\": 0,\n    \"mana\": 4,\n    \"tipo\": \"MAGIA\",\n    \"classe\": \"MAGO\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carta",
+							"host": ["{{baseUrl}}"],
+							"path": ["carta"]
+						}
+					}
+				},
+				{
+					"name": "Listar Cartas",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/carta",
+							"host": ["{{baseUrl}}"],
+							"path": ["carta"]
+						}
+					}
+				},
+				{
+					"name": "Buscar Carta por ID",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/carta/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["carta", "1"]
+						}
+					}
+				},
+				{
+					"name": "Buscar Carta por Nome",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/carta?nome=Bola de Fogo",
+							"host": ["{{baseUrl}}"],
+							"path": ["carta"],
+							"query": [
+								{
+									"key": "nome",
+									"value": "Bola de Fogo"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Buscar Carta por Classe",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/carta?classe=MAGO",
+							"host": ["{{baseUrl}}"],
+							"path": ["carta"],
+							"query": [
+								{
+									"key": "classe",
+									"value": "MAGO"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Buscar Carta por Tipo",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/carta?tipo=MAGIA",
+							"host": ["{{baseUrl}}"],
+							"path": ["carta"],
+							"query": [
+								{
+									"key": "tipo",
+									"value": "MAGIA"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Deletar Carta",
+					"request": {
+						"method": "DELETE",
+						"url": {
+							"raw": "{{baseUrl}}/carta/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["carta", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Baralhos",
+			"item": [
+				{
+					"name": "Criar Baralho",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Baralho Mago Ofensivo\",\n    \"classe\": \"MAGO\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/baralho",
+							"host": ["{{baseUrl}}"],
+							"path": ["baralho"]
+						}
+					}
+				},
+				{
+					"name": "Listar Baralhos",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/baralho",
+							"host": ["{{baseUrl}}"],
+							"path": ["baralho"]
+						}
+					}
+				},
+				{
+					"name": "Buscar Baralho por ID",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/baralho/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["baralho", "1"]
+						}
+					}
+				},
+				{
+					"name": "Buscar Baralho por Nome",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/baralho?nome=Baralho Mago Ofensivo",
+							"host": ["{{baseUrl}}"],
+							"path": ["baralho"],
+							"query": [
+								{
+									"key": "nome",
+									"value": "Baralho Mago Ofensivo"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Buscar Baralho por Classe",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/baralho?classe=MAGO",
+							"host": ["{{baseUrl}}"],
+							"path": ["baralho"],
+							"query": [
+								{
+									"key": "classe",
+									"value": "MAGO"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Adicionar Carta ao Baralho",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/baralho/1/cartas",
+							"host": ["{{baseUrl}}"],
+							"path": ["baralho", "1", "cartas"]
+						}
+					}
+				},
+				{
+					"name": "Detalhar Cartas do Baralho",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/baralho/1/cartas",
+							"host": ["{{baseUrl}}"],
+							"path": ["baralho", "1", "cartas"]
+						}
+					}
+				},
+				{
+					"name": "Remover Carta do Baralho",
+					"request": {
+						"method": "DELETE",
+						"url": {
+							"raw": "{{baseUrl}}/baralho/1/cartas/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["baralho", "1", "cartas", "1"]
+						}
+					}
+				},
+				{
+					"name": "Deletar Baralho",
+					"request": {
+						"method": "DELETE",
+						"url": {
+							"raw": "{{baseUrl}}/baralho/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["baralho", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Testes de Erro",
+			"item": [
+				{
+					"name": "Carta com Mana Invalida",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Carta Bugada\",\n    \"ataque\": 5,\n    \"defesa\": 3,\n    \"mana\": 15,\n    \"tipo\": \"CRIATURA\",\n    \"classe\": \"MAGO\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carta",
+							"host": ["{{baseUrl}}"],
+							"path": ["carta"]
+						}
+					}
+				},
+				{
+					"name": "Carta com Nome Vazio",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"\",\n    \"ataque\": 5,\n    \"defesa\": 3,\n    \"mana\": 4,\n    \"tipo\": \"CRIATURA\",\n    \"classe\": \"MAGO\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carta",
+							"host": ["{{baseUrl}}"],
+							"path": ["carta"]
+						}
+					}
+				},
+				{
+					"name": "Carta com Ataque Invalido",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Carta Quebrada\",\n    \"ataque\": -1,\n    \"defesa\": 3,\n    \"mana\": 4,\n    \"tipo\": \"CRIATURA\",\n    \"classe\": \"MAGO\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carta",
+							"host": ["{{baseUrl}}"],
+							"path": ["carta"]
+						}
+					}
+				}
+			]
+		}
+	]
+}

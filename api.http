@@ -1,0 +1,152 @@
+### ============================================
+### CARTAS
+### ============================================
+
+### Criar carta - MAGO
+POST http://localhost:8080/carta
+Content-Type: application/json
+
+{
+    "nome": "Bola de Fogo",
+    "descricao": "Causa 6 de dano",
+    "ataque": 6,
+    "defesa": 0,
+    "mana": 4,
+    "tipo": "MAGIA",
+    "classe": "MAGO"
+}
+
+### Criar carta - CACADOR
+POST http://localhost:8080/carta
+Content-Type: application/json
+
+{
+    "nome": "Tiro Preciso",
+    "descricao": "Causa 5 de dano a um alvo",
+    "ataque": 5,
+    "defesa": 2,
+    "mana": 3,
+    "tipo": "CRIATURA",
+    "classe": "CACADOR"
+}
+
+### Criar carta - PALADINO
+POST http://localhost:8080/carta
+Content-Type: application/json
+
+{
+    "nome": "Martelo da Justica",
+    "descricao": "Causa 4 de dano e cura 2",
+    "ataque": 4,
+    "defesa": 3,
+    "mana": 5,
+    "tipo": "CRIATURA",
+    "classe": "PALADINO"
+}
+
+### Criar carta - DRUIDA
+POST http://localhost:8080/carta
+Content-Type: application/json
+
+{
+    "nome": "Forma de Urso",
+    "descricao": "Ganha 2 de defesa",
+    "ataque": 2,
+    "defesa": 4,
+    "mana": 2,
+    "tipo": "MAGIA",
+    "classe": "DRUIDA"
+}
+
+### Criar carta - QUALQUER classe
+POST http://localhost:8080/carta
+Content-Type: application/json
+
+{
+    "nome": "Espada Lendaria",
+    "descricao": "Arma comum a todas as classes",
+    "ataque": 3,
+    "defesa": 1,
+    "mana": 1,
+    "tipo": "CRIATURA",
+    "classe": "QUALQUER"
+}
+
+### Listar todas as cartas
+GET http://localhost:8080/carta
+
+### Buscar carta por ID
+GET http://localhost:8080/carta/1
+
+### Buscar carta por nome
+GET http://localhost:8080/carta?nome=Bola de Fogo
+
+### Buscar carta por classe
+GET http://localhost:8080/carta?classe=MAGO
+
+### Buscar carta por tipo
+GET http://localhost:8080/carta?tipo=CRIATURA
+
+### Deletar carta
+DELETE http://localhost:8080/carta/5
+
+### ============================================
+### BARALHOS
+### ============================================
+
+### Criar baralho MAGO
+POST http://localhost:8080/baralho
+Content-Type: application/json
+
+{
+    "nome": "Baralho Mago Ofensivo",
+    "classe": "MAGO"
+}
+
+### Criar baralho CACADOR
+POST http://localhost:8080/baralho
+Content-Type: application/json
+
+{
+    "nome": "Baralho Cacador Rápido",
+    "classe": "CACADOR"
+}
+
+### Listar todos os baralhos
+GET http://localhost:8080/baralho
+
+### Buscar baralho por ID
+GET http://localhost:8080/baralho/1
+
+### Buscar baralho por nome
+GET http://localhost:8080/baralho?nome=Baralho Mago Ofensivo
+
+### Buscar baralho por classe
+GET http://localhost:8080/baralho?classe=MAGO
+
+### Adicionar carta ao baralho
+PUT http://localhost:8080/baralho/1/cartas
+Content-Type: application/json
+
+{
+    "id": 1
+}
+
+### Adicionar carta QUALQUER classe ao baralho
+PUT http://localhost:8080/baralho/1/cartas
+Content-Type: application/json
+
+{
+    "id": 5
+}
+
+### Detalhar cartas do baralho
+GET http://localhost:8080/baralho/1/cartas
+
+### Remover carta do baralho
+DELETE http://localhost:8080/baralho/1/cartas/1
+
+### Deletar baralho
+DELETE http://localhost:8080/baralho/1
+
+###
