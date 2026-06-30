@@ -2,6 +2,8 @@ package com.hearthstone.cartas_api.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hearthstone.cartas_api.model.Carta;
 import com.hearthstone.cartas_api.model.ClasseCarta;
 import com.hearthstone.cartas_api.model.TipoCarta;
-import com.hearthstone.cartas_api.repository.CartaRepository;
+import com.hearthstone.cartas_api.service.CartaService;
 
 import jakarta.validation.Valid;
 
@@ -22,10 +24,10 @@ import jakarta.validation.Valid;
 @RequestMapping("/carta")
 public class CartaController {
 
-    private final CartaRepository cartaRepository;
+    private final CartaService cartaService;
 
-    public CartaController(CartaRepository cartaRepository) {
-        this.cartaRepository = cartaRepository;
+    public CartaController(CartaService cartaService) {
+        this.cartaService = cartaService;
     }
 
     @GetMapping
@@ -33,31 +35,25 @@ public class CartaController {
             @RequestParam(required = false) String nome,
             @RequestParam(required = false) ClasseCarta classe,
             @RequestParam(required = false) TipoCarta tipo) {
-
-        if (nome != null) {
-            return cartaRepository.findByNome(nome);
-        }
-        if (classe != null) {
-            return cartaRepository.findByClasse(classe);
-        }
-        if (tipo != null) {
-            return cartaRepository.findByTipo(tipo);
-        }
-        return cartaRepository.findAll();
+        return cartaService.buscar(nome, classe, tipo);
     }
 
     @GetMapping("/{id}")
-    public Carta buscarPorId(@PathVariable Long id) {
-        return cartaRepository.findById(id).orElse(null);
+    public ResponseEntity<Carta> buscarPorId(@PathVariable Long id) {
+        return cartaService.buscarPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Carta criar(@Valid @RequestBody Carta carta) {
-        return cartaRepository.save(carta);
+    public ResponseEntity<Carta> criar(@Valid @RequestBody Carta carta) {
+        Carta cartaSalva = cartaService.salvar(carta);
+        return ResponseEntity.status(HttpStatus.CREATED).body(cartaSalva);
     }
 
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
-        cartaRepository.deleteById(id);
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        cartaService.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }
