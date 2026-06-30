@@ -2,6 +2,7 @@ package com.hearthstone.cartas_api.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hearthstone.cartas_api.model.Baralho;
 import com.hearthstone.cartas_api.model.Carta;
 import com.hearthstone.cartas_api.model.ClasseCarta;
-import com.hearthstone.cartas_api.repository.CartaRepository;
 import com.hearthstone.cartas_api.service.BaralhoService;
 
 @RestController
@@ -24,11 +24,9 @@ import com.hearthstone.cartas_api.service.BaralhoService;
 public class BaralhoController {
 
     private final BaralhoService baralhoService;
-    private final CartaRepository cartaRepository;
 
-    public BaralhoController(BaralhoService baralhoService, CartaRepository cartaRepository) {
+    public BaralhoController(BaralhoService baralhoService) {
         this.baralhoService = baralhoService;
-        this.cartaRepository = cartaRepository;
     }
 
     @GetMapping
@@ -46,22 +44,27 @@ public class BaralhoController {
     }
 
     @GetMapping("/{id}")
-    public Baralho buscarPorId(@PathVariable Long id) {
-        return baralhoService.buscarPorId(id);
+    public ResponseEntity<Baralho> buscarPorId(@PathVariable Long id) {
+        Baralho baralho = baralhoService.buscarPorId(id);
+        if (baralho == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(baralho);
     }
 
     @GetMapping("/{id}/cartas")
-    public List<Carta> buscarCartas(@PathVariable Long id) {
+    public ResponseEntity<List<Carta>> buscarCartas(@PathVariable Long id) {
         Baralho baralho = baralhoService.buscarPorId(id);
         if (baralho == null) {
-            return List.of();
+            return ResponseEntity.notFound().build();
         }
-        return baralho.getCartas();
+        return ResponseEntity.ok(baralho.getCartas());
     }
 
     @PostMapping
-    public Baralho criar(@RequestBody Baralho baralho) {
-        return baralhoService.salvar(baralho);
+    public ResponseEntity<Baralho> criar(@RequestBody Baralho baralho) {
+        Baralho baralhoSalvo = baralhoService.salvar(baralho);
+        return ResponseEntity.status(HttpStatus.CREATED).body(baralhoSalvo);
     }
 
     @PutMapping("/{id}/cartas")
@@ -85,7 +88,8 @@ public class BaralhoController {
     }
 
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
         baralhoService.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }
