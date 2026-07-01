@@ -29,6 +29,12 @@ API REST para gerenciamento de cartas e baralhos do jogo Hearthstone.
 
 A aplicação estará disponível em: `http://localhost:8080`
 
+## Como Rodar os Testes
+
+```bash
+./mvnw test
+```
+
 ## Como Gerar o JAR
 
 ```bash
@@ -134,4 +140,5 @@ Após rodar a aplicação, acesse:
 
 ## Collections
 
-Arquivo `api.http` disponível para uso com IntelliJ REST Client ou VS Code REST Client.
+- **Postman**: Arquivo `postman_collection.json` disponível para importar no Postman
+- **HTTP Client**: Arquivo `api.http` disponível para uso com IntelliJ REST Client ou VS Code REST Client
